@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/__tests__/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "test-samples/**",
+    "test-runner.js"
+  ]
+}

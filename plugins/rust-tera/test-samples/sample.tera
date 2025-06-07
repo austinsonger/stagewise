@@ -1,0 +1,88 @@
+{% extends "base.tera" %}
+
+{# User profile page template #}
+
+{% block title %}{{ user.name | title }} - Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <header class="profile-header">
+        <h1>{{ user.name | title }}</h1>
+        {% if user.avatar %}
+            <img src="{{ user.avatar | safe }}" alt="Avatar" class="avatar">
+        {% endif %}
+    </header>
+
+    <section class="profile-info">
+        <h2>Information</h2>
+        <dl>
+            <dt>Email:</dt>
+            <dd>{{ user.email }}</dd>
+            
+            <dt>Role:</dt>
+            <dd>
+                {% if user.role == "admin" %}
+                    <span class="badge admin">Administrator</span>
+                {% elif user.role == "moderator" %}
+                    <span class="badge moderator">Moderator</span>
+                {% else %}
+                    <span class="badge user">User</span>
+                {% endif %}
+            </dd>
+            
+            <dt>Member since:</dt>
+            <dd>{{ user.created_at | date(format="%B %d, %Y") }}</dd>
+        </dl>
+    </section>
+
+    {% if user.posts %}
+        <section class="user-posts">
+            <h2>Recent Posts ({{ user.posts | length }})</h2>
+            <div class="posts-grid">
+                {% for post in user.posts | slice(end=6) %}
+                    <article class="post-card">
+                        <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
+                        <p>{{ post.excerpt | truncate(length=150) }}</p>
+                        <footer>
+                            <time>{{ post.created_at | date(format="%b %d") }}</time>
+                            <span class="comments">{{ post.comments | length }} comments</span>
+                        </footer>
+                    </article>
+                {% endfor %}
+            </div>
+            
+            {% if user.posts | length > 6 %}
+                <a href="/users/{{ user.id }}/posts" class="view-all">View all posts</a>
+            {% endif %}
+        </section>
+    {% endif %}
+
+    {% macro social_link(platform, username) %}
+        {% if username %}
+            <a href="https://{{ platform }}.com/{{ username }}" 
+               class="social-link {{ platform }}"
+               target="_blank"
+               rel="noopener">
+                {{ platform | title }}
+            </a>
+        {% endif %}
+    {% endmacro %}
+
+    {% if user.social %}
+        <section class="social-links">
+            <h2>Social Media</h2>
+            <div class="social-grid">
+                {{ social_link(platform="twitter", username=user.social.twitter) }}
+                {{ social_link(platform="github", username=user.social.github) }}
+                {{ social_link(platform="linkedin", username=user.social.linkedin) }}
+            </div>
+        </section>
+    {% endif %}
+
+    {% include "components/contact-form.tera" %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/js/profile.js"></script>
+{% endblock %}
