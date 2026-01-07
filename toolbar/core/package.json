@@ -60,7 +60,7 @@
     "lucide-react": "^0.503.0",
     "postcss": "^8.5.3",
     "postcss-prefix-selector": "^2.1.1",
-    "preact": "^10.26.6",
+    "preact": "^10.26.10",
     "react-remove-scroll": "^2.6.3",
     "superjson": "^2.2.2",
     "tailwind-merge": "^3.2.0",

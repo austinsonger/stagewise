@@ -34,12 +34,12 @@
   },
   "peerDependencies": {
     "@stagewise/toolbar": "workspace:*",
-    "preact": "^10.20.0"
+    "preact": "^10.26.10"
   },
   "dependencies": {},
   "devDependencies": {
     "@stagewise/toolbar": "workspace:*",
-    "preact": "^10.20.0",
+    "preact": "^10.26.10",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.3",
